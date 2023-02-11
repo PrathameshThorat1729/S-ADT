@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Workspace
+/lib
+/obj
+/test/bin
+.vscode
