@@ -35,7 +35,7 @@ $(OBJ)/%.o: $(SRCS)
 	$(CXX) $(CFLAGS) $? -c -o $@
 
 # Building and Running Tests Binaries
-$(TEST)/%: $(OBJ) $(LIB) $(LIBS) $(TESTBIN) $(LIB)/lib%.a
+$(TEST)/%: $(OBJ) $(LIB) $(TESTBIN) $(LIB)/lib%.a
 	$(CXX) $(CFLAGS) -L$(LIB)/ $@.test.cpp -o $(patsubst $(TEST)/%, $(TESTBIN)/%, $@) -l$(patsubst $(TEST)/%,%, $@)
 	@echo "=========="
 	@./$(TESTBIN)/$(patsubst $(TEST)/%,%, $@)
