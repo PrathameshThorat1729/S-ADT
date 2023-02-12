@@ -27,11 +27,11 @@ release: clean
 release: all
 
 # Building Libraries
-$(LIB)/%.a: $(OBJS)
+$(LIB)/lib%.a: $(OBJ)/%.o
 	$(AR) rvs $@ $?
 
 # Building Objects
-$(OBJ)/%.o: $(SRCS)
+$(OBJ)/%.o: $(SRC)/%.cpp
 	$(CXX) $(CFLAGS) $? -c -o $@
 
 # Building and Running Tests Binaries
