@@ -1,4 +1,5 @@
 #include <Array.hpp>
+#include <debug.hpp>
 
 Array::Array (int _len)
 {
@@ -30,6 +31,23 @@ void Array::traverse (void (*callback) (int,int,Array*, void*), void* any)
   for (int i = 0; i < _size; i++)
   {
     callback(i, _arr[i], this, any);
+  }
+}
+
+void Array::b_sort ()
+{
+  int curr;
+  for (int i = 0; i < _size - 1; i++)
+  {
+    for (int j = 0; j < _size - 1 - i; j++)
+    {
+      if (_arr[j] > _arr[j+1])
+      {
+        curr = _arr[j];
+        _arr[j] = _arr[j+1];
+        _arr[j+1] = curr;
+      }
+    }
   }
 }
 

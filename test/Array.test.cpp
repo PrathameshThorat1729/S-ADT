@@ -41,5 +41,8 @@ int main ()
   arr.traverse(get_sum, &sum);
   cout << sum << endl;
   
+  arr.b_sort();
+  print_arr(&arr);
+  
   return 0;
 }

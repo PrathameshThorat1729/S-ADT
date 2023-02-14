@@ -13,6 +13,7 @@ public:
   int at(int);
   bool at(int, int);
   void traverse(void (*)(int,int,Array*, void*), void*);
+  void b_sort();
   int size();
   ~Array();
 };
