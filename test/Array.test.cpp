@@ -44,5 +44,8 @@ int main ()
   arr.b_sort();
   print_arr(&arr);
   
+  for (int i = -5; i <= arr.size() + 5; i++)
+    cout << i << " : " << arr.l_search(i) << " / " << arr.b_search(i, true) << endl;
+  
   return 0;
 }

@@ -1,6 +1,6 @@
 #ifndef NDEBUG
 #include <iostream>
-#define LOG(x) { std::cout << i << " " << j << std::endl; }
+#define LOG(x) { std::cout << x; }
 #else
 #define LOG(x)
 #endif
