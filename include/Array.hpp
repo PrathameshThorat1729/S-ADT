@@ -3,27 +3,35 @@
 
 #include <stdexcept>
 
-class Array {
+class Array
+{
 private:
-  int* _arr;
+  int *_arr;
   int _size;
+  int _len;
 
 public:
-  Array(int);
-  Array(int* ,int,int);
-  
-  int at(int);
-  bool at(int, int);
-  
-  void traverse(void (*)(int,int,Array*, void*), void*);
-  
-  void b_sort();
-  
+  Array();
+  Array(int, int);
+
+  int &operator[](int);
+
+  void insert(int, int);
+  void operator<<(int);
+
+  int remove(int);
+
+  void traverse(void (*)(int, int, Array *, void *), void *);
+
+  void b_sort(bool);
+  void s_sort(bool);
+
   int l_search(int);
-  int b_search(int, bool);
-  
+  int b_search(int, bool, bool);
+
   int size();
-  
+  int length();
+
   ~Array();
 };
 

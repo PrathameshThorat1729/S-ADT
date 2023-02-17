@@ -1,107 +1,183 @@
 #include <Array.hpp>
 #include <debug.hpp>
 
-Array::Array (int _len)
+Array::Array()
 {
-  _size = _len;
+  _size = 1;
+  _len = 0;
 
   _arr = new int[_size];
 }
 
-Array::Array (int* _els, int _len, int _from)
+Array::Array(int len, int i_val)
 {
-  _size = _len;
-  
+  _size = 1;
+  _len = 0;
+
   _arr = new int[_size];
-  for (int i = _from;i < _size + _from; i++)
+
+  while (len--)
+    this->operator<<(i_val);
+}
+
+void Array::insert(int _ind, int _el)
+{
+  if (_len == _size)
   {
-    this->at(i - _from, _els[i]);
+    _size *= 2;
+
+    int *ptr = new int[_size];
+    for (int i = 0; i < _len; i++)
+    {
+      ptr[i] = _arr[i];
+    }
+
+    delete[] _arr;
+    _arr = ptr;
   }
+
+  if (_ind > _len)
+    throw std::out_of_range("index is 'out of range' of an array");
+
+  for (int i = _len++; i > _ind; i--)
+    _arr[i] = _arr[i - 1];
+
+  _arr[_ind] = _el;
 }
 
-int Array::at (int _ind)
+void Array::operator<<(int _el)
 {
-  if (_ind > _size - 1)
-    throw std::out_of_range("a");
-    
+  this->insert(_len, _el);
+}
+
+int Array::remove(int _ind)
+{
+  if (_ind >= _len--)
+    throw std::out_of_range("index is 'out of range' of an array");
+
+  int el = _arr[_ind];
+
+  for (int i = _ind; i <= _len; i++)
+  {
+    _arr[i] = _arr[i + 1];
+  }
+
+  return el;
+}
+
+int &Array::operator[](int _ind)
+{
+  if (_ind >= _len)
+    throw std::out_of_range("index is 'out of range' of an array");
+
   return _arr[_ind];
 }
 
-bool Array::at (int _ind, int _el)
+void Array::traverse(void (*callback)(int, int, Array *, void *), void *any)
 {
-  if (_ind > _size - 1)
-    return false;
-  
-  _arr[_ind] = _el;
-  
-  return true;
-}
-
-void Array::traverse (void (*callback) (int,int,Array*, void*), void* any)
-{
-  for (int i = 0; i < _size; i++)
+  for (int i = 0; i < _len; i++)
   {
     callback(i, _arr[i], this, any);
   }
 }
 
-void Array::b_sort ()
+void Array::b_sort(bool asc)
 {
   int curr;
-  for (int i = 0; i < _size - 1; i++)
+  for (int i = 0; i < _len - 1; i++)
   {
-    for (int j = 0; j < _size - 1 - i; j++)
+    for (int j = 0; j < _len - 1 - i; j++)
     {
-      if (_arr[j] > _arr[j+1])
+      if (_arr[j] > _arr[j + 1])
       {
         curr = _arr[j];
-        _arr[j] = _arr[j+1];
-        _arr[j+1] = curr;
+        _arr[j] = _arr[j + 1];
+        _arr[j + 1] = curr;
       }
     }
   }
 }
 
-int Array::l_search (int _el)
+void Array::s_sort(bool asc)
 {
-  for (int i = 0; i < _size; i++)
+  int min = _arr[0];
+  for (int i = 0; i < _len; i++)
+  {
+    for (int j = i + 1; j < _len; j++)
+    {
+      if (_arr[i] < _arr[j] && !asc)
+      {
+        min = _arr[j];
+        _arr[j] = _arr[i];
+        _arr[i] = min;
+      }
+      else if (_arr[i] > _arr[j] && asc)
+      {
+        min = _arr[j];
+        _arr[j] = _arr[i];
+        _arr[i] = min;
+      }
+    }
+  }
+}
+
+int Array::l_search(int _el)
+{
+  for (int i = 0; i < _len; i++)
   {
     if (_arr[i] == _el)
       return i;
   }
-  
+
   return -1;
 }
 
-int Array::b_search (int _el, bool is_sorted)
+int Array::b_search(int _el, bool is_sorted, bool asc)
 {
   if (!is_sorted)
-    this->b_sort();
-    
+    this->b_sort(asc);
+
   int i = 0;
-  int j = _size - 1;
+  int j = _len - 1;
   int mid;
-  
+
   while (i <= j)
   {
     mid = (i + j) / 2;
     if (_arr[mid] == _el)
       return mid;
+
     if (_arr[mid] > _el)
-      j = mid - 1;
+    {
+      if (asc)
+        j = mid - 1;
+      else
+        i = mid + 1;
+    }
+
     else if (_arr[mid] < _el)
-      i = mid + 1;
+    {
+      if (asc)
+        i = mid + 1;
+      else
+        j = mid - 1;
+    }
   }
-  
+
   return -1;
 }
 
-int Array::size ()
+int Array::size()
 {
   return this->_size;
 }
 
-Array::~Array ()
+int Array::length()
+{
+  return this->_len;
+}
+
+Array::~Array()
 {
   delete[] _arr;
 }

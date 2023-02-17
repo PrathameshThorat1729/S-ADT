@@ -48,7 +48,7 @@ $ make clean
 
 - Each Datatype and It's respective files starts with Capital Letter
 - After test build, binaries are stored in test/bin
-- This project is created and tested in only WSL & Android (Termux)
+- This project is created and tested in only Windows 10, WSL & Android (Termux)
 
 # Contact
 
