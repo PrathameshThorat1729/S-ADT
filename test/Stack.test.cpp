@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <assert.h>
 #include <Stack.hpp>
 using namespace std;
 
@@ -17,15 +15,14 @@ int main()
   for (int i = 6; i <= 10; i++)
     stk << i;
     
-  cout << "4 is at " << stk.search(4) << endl;
-  
-  cout << "Top : " << stk.top() << endl;
+  cout << "\nTop : " << stk.top() << endl;
   cout << "size : " << stk.size() << ", length : " << stk.length() << endl;
   
+  cout << endl;
   for (int i = stk.length(); i > 0; i--)
     cout << stk.pop() << " Popped"<< endl;
   
-  cout << "size : " << stk.size() << ", length : " << stk.length() << endl;
+  cout << "\nsize : " << stk.size() << ", length : " << stk.length() << endl;
   
   return 0;
 }

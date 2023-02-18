@@ -1,9 +1,9 @@
-#ifndef SADT_STACK
-#define SADT_STACK
+#ifndef SADT_QUEUE
+#define SADT_QUEUE
 
 #include <Array.hpp>
 
-class Stack : private Array
+class Queue : private Array
 {
 public:
   using Array::operator<<;
@@ -11,9 +11,10 @@ public:
   using Array::length;
   using Array::empty;
   
-  int top();
-  void push(int);
-  int pop();
+  int front();
+  int rear();
+  void enqueue(int);
+  int dequeue();
 };
 
 #endif
