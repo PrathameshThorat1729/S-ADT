@@ -10,6 +10,7 @@ LIB=lib
 SRCS=$(wildcard $(SRC)/*.cpp)
 OBJS=$(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 LIBS=$(patsubst $(OBJ)/%.o, $(LIB)/lib%.a, $(OBJS))
+ILIBS=$(patsubst $(OBJ)/%.o,-l%, $(OBJS))
 
 # Variables for Test
 TEST=test
@@ -36,7 +37,7 @@ $(OBJ)/%.o: $(SRC)/%.cpp
 
 # Building and Running Tests Binaries
 $(TEST)/%: $(OBJ) $(LIB) $(TESTBIN) $(LIB)/lib%.a
-	$(CXX) $(CFLAGS) -L$(LIB)/ $@.test.cpp -o $(patsubst $(TEST)/%, $(TESTBIN)/%, $@) -l$(patsubst $(TEST)/%,%, $@) -lArray
+	$(CXX) $(CFLAGS) -L$(LIB)/ $@.test.cpp -o $(patsubst $(TEST)/%, $(TESTBIN)/%, $@) $(ILIBS)
 	@echo "=========="
 	@./$(TESTBIN)/$(patsubst $(TEST)/%,%, $@)
 	@echo "=========="
