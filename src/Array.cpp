@@ -37,7 +37,7 @@ void Array::insert(int _ind, int _el)
   }
 
   if (_ind > _len)
-    throw std::out_of_range("index is 'out of range' of an array");
+    throw std::out_of_range("index is 'out of range' of memory");
 
   for (int i = _len++; i > _ind; i--)
     _arr[i] = _arr[i - 1];
@@ -52,8 +52,11 @@ void Array::operator<<(int _el)
 
 int Array::remove(int _ind)
 {
+  if (_len == 0)
+    throw std::out_of_range("no any item in memory");
+    
   if (_ind >= _len--)
-    throw std::out_of_range("index is 'out of range' of an array");
+    throw std::out_of_range("index is 'out of range' of memory");
 
   int el = _arr[_ind];
 
@@ -67,8 +70,8 @@ int Array::remove(int _ind)
 
 int &Array::operator[](int _ind)
 {
-  if (_ind >= _len)
-    throw std::out_of_range("index is 'out of range' of an array");
+  if (_ind >= _len || _ind < 0)
+    throw std::out_of_range("index is 'out of range' of memory");
 
   return _arr[_ind];
 }
@@ -116,6 +119,34 @@ void Array::s_sort(bool asc)
         min = _arr[j];
         _arr[j] = _arr[i];
         _arr[i] = min;
+      }
+    }
+  }
+}
+
+void Array::i_sort(bool asc)
+{
+  for (int i = 1; i < _len; i++)
+  {
+    for (int j = i; j > 0; j--)
+    {
+      if (asc)
+      {
+        if (_arr[j] < _arr[j-1])
+        {
+          int curr = _arr[j];
+          _arr[j] = _arr[j-1];
+          _arr[j-1] = curr;
+        }
+      }
+      else
+      {
+        if (_arr[j] > _arr[j-1])
+        {
+          int curr = _arr[j];
+          _arr[j] = _arr[j-1];
+          _arr[j-1] = curr;
+        }
       }
     }
   }
@@ -175,6 +206,13 @@ int Array::size()
 int Array::length()
 {
   return this->_len;
+}
+
+bool Array::empty()
+{
+  if (_len > 0)
+    return false;
+  return true;
 }
 
 Array::~Array()

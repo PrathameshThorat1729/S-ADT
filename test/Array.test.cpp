@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <assert.h>
 #include <Array.hpp>
 using namespace std;
@@ -20,25 +21,27 @@ void get_sum(int ind, int el, Array *arr, void *sum)
 
 int main()
 {
+  srand(time(0));
   int sum = 0;
   Array arr;
 
-  cout << "Adding from 1..10" << endl;
+  cout << "Adding from 10 random nums ..." << endl;
   for (int i = 1; i <= 10; i++)
   {
-    arr << i;
+    arr << (rand() % 91) + 10;
   }
 
   cout << "size : " << arr.size() << ", length : " << arr.length() << endl;
   print_arr(&arr);
 
   cout << "at 4 : " << arr[4] << endl;
-  arr[4] = 87;
+  arr[4] = (rand() % 91) + 10;
   cout << "now at 4 : " << arr[4] << endl;
   print_arr(&arr);
 
-  cout << "inserting 63 at 6 ..." << endl;
-  arr.insert(6, 63);
+  int to_ins = (rand() % 91) + 10;
+  cout << "inserting " << to_ins << " at 6 ..." << endl;
+  arr.insert(6, to_ins);
   cout << "size : " << arr.size() << ", length : " << arr.length() << endl;
   print_arr(&arr);
 
@@ -50,9 +53,10 @@ int main()
   arr.traverse(get_sum, &sum);
   cout << sum << endl;
 
-  bool asc = true;
+  bool asc = false;
   // arr.b_sort(asc);
-  arr.s_sort(asc);
+  // arr.s_sort(asc);
+  arr.i_sort(asc);
   cout << "\nSorting Array ..." << endl;
   print_arr(&arr);
 

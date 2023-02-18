@@ -5,7 +5,7 @@
 
 class Array
 {
-private:
+protected:
   int *_arr;
   int _size;
   int _len;
@@ -25,12 +25,14 @@ public:
 
   void b_sort(bool);
   void s_sort(bool);
+  void i_sort(bool);
 
   int l_search(int);
   int b_search(int, bool, bool);
 
   int size();
   int length();
+  bool empty();
 
   ~Array();
 };
